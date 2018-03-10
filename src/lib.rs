@@ -8,7 +8,7 @@ type Amount = i64; // TODO: Money type?
 #[derive(Debug)]
 pub struct Account {
     name: String,
-    classification: AccountClassification
+    classification: AccountClassification,
 }
 
 #[derive(Debug)]
@@ -20,13 +20,13 @@ enum AccountClassification {
     Investment,
 }
 
-/// An Envelope is a virtual account backed by actual funds in the Accounts . Funds are transferred between
-/// Envelopes, often from an Income Envelopes to Expense Envelopes . Transactions are made
+/// An Envelope is a virtual account backed by actual funds in the Accounts . Funds are transferred
+/// between Envelopes, often from an Income Envelopes to Expense Envelopes . Transactions are made
 /// against Envelopes . This allows each Envelope to have a balance (positive or negative).
 #[derive(Debug)]
 pub struct Envelope {
     name: String,
-    classification: EnvelopeClassification
+    classification: EnvelopeClassification,
 }
 
 #[derive(Debug)]
@@ -44,7 +44,7 @@ pub struct Transaction {
     classification: TransactionClassification,
     amount: Amount,
     envelope: Envelope,
-    account: Account
+    account: Account,
 }
 
 #[derive(Debug)]
@@ -59,7 +59,7 @@ pub struct AccountTransfer {
     source: Account,
     sink: Account,
     amount: Amount,
-    date: NaiveDate
+    date: NaiveDate,
 }
 
 /// A transfer of funds between two Envelopes
@@ -68,5 +68,5 @@ pub struct EnvelopeTransfer {
     source: Envelope,
     sink: Envelope,
     amount: Amount,
-    date: NaiveDate
+    date: NaiveDate,
 }
