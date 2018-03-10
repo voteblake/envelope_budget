@@ -54,6 +54,7 @@ enum TransactionClassification {
 }
 
 /// A transfer of funds between two Accounts
+#[derive(Debug)]
 pub struct AccountTransfer {
     source: Account,
     sink: Account,
@@ -62,6 +63,7 @@ pub struct AccountTransfer {
 }
 
 /// A transfer of funds between two Envelopes
+#[derive(Debug)]
 pub struct EnvelopeTransfer {
     source: Envelope,
     sink: Envelope,
