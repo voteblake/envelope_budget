@@ -1,0 +1,7 @@
+[package]
+name = "envelope_budget"
+version = "0.1.0"
+authors = ["Blake Johnson <blake@radix.tax>"]
+
+[dependencies]
+chrono = "0.3"
