@@ -1,8 +1,11 @@
 extern crate chrono;
 use chrono::NaiveDate;
 
+use std::fs;
+use std::io;
+
 #[derive(Debug)]
-struct Amount(i64); // TODO: Money type?
+struct Amount(i64);
 
 /// An account is a real world banking product where money transactions occur.
 /// These transactions will be categorized in to envelopes to be budgeted.
@@ -70,4 +73,21 @@ pub struct EnvelopeTransfer {
     sink: Envelope,
     amount: Amount,
     date: NaiveDate,
+}
+
+#[derive(Debug)]
+pub struct Budget {
+    accounts: Vec<Account>,
+    envelopes: Vec<Envelope>,
+    last_allocation: Option<NaiveDate>,
+}
+
+ impl Budget {
+    pub fn init() -> io::Result<Self> {
+        fs::create_dir("accounts")?;
+        fs::create_dir("envelopes")?;
+        
+        let budget = Budget {accounts: Vec::new(), envelopes: Vec::new(), last_allocation: None};
+        Ok(budget)
+    }
 }
