@@ -87,7 +87,50 @@ pub struct Budget {
         fs::create_dir("accounts")?;
         fs::create_dir("envelopes")?;
         
+        fs::OpenOptions::new().write(true).create_new(true).open("envelope_budget.conf")?;
+
         let budget = Budget {accounts: Vec::new(), envelopes: Vec::new(), last_allocation: None};
         Ok(budget)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    use std::fs;
+
+    #[test]
+    fn init_success() {
+        let budget = Budget::init();
+        assert!(budget.is_ok());
+
+        fs::remove_dir("accounts");
+        fs::remove_dir("envelopes");
+        fs::remove_file("envelope_budget.conf");
+    }
+
+    #[test]
+    fn init_folders_exist() {
+        fs::create_dir("accounts");
+        fs::create_dir("envelopes");
+
+        let budget = Budget::init();
+        assert!(budget.is_err());
+
+        fs::remove_dir("accounts");
+        fs::remove_dir("envelopes");
+    }
+
+    #[test]
+    fn init_config_exist() {
+        fs::File::create("envelope_budget.conf");
+
+        let budget = Budget::init();
+        assert!(budget.is_err());
+
+        fs::remove_dir("accounts");
+        fs::remove_dir("envelopes");
+        fs::remove_file("envelope_budget.conf");
     }
 }
