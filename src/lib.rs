@@ -1,18 +1,19 @@
 extern crate chrono;
 use chrono::NaiveDate;
 
-type Amount = i64; // TODO: Money type?
+#[derive(Debug)]
+struct Amount(i64); // TODO: Money type?
 
 /// An account is a real world banking product where money transactions occur.
 /// These transactions will be categorized in to envelopes to be budgeted.
 #[derive(Debug)]
 pub struct Account {
     name: String,
-    classification: AccountClassification,
+    kind: AccountKind,
 }
 
 #[derive(Debug)]
-enum AccountClassification {
+enum AccountKind {
     Savings,
     Checking,
     CreditCard,
@@ -26,11 +27,11 @@ enum AccountClassification {
 #[derive(Debug)]
 pub struct Envelope {
     name: String,
-    classification: EnvelopeClassification,
+    kind: EnvelopeKind,
 }
 
 #[derive(Debug)]
-enum EnvelopeClassification {
+enum EnvelopeKind {
     Income,
     Expense,
 }
@@ -41,14 +42,14 @@ enum EnvelopeClassification {
 pub struct Transaction {
     payee: String,
     date: NaiveDate,
-    classification: TransactionClassification,
+    kind: TransactionKind,
     amount: Amount,
     envelope: Envelope,
     account: Account,
 }
 
 #[derive(Debug)]
-enum TransactionClassification {
+enum TransactionKind {
     Withdrawal,
     Deposit,
 }
